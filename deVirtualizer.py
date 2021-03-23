@@ -65,7 +65,7 @@ for i in range(0, trace_len):
         for i in range(vm_start_lineno, vm_end_lineno + 1):
             writeVM.write(trace[i])
         vm_start_lineno = vm_end_lineno = 0
-
+        writeVM.close()
 print("VM search completed...!")
 
 # Analyzing all the VMs found
@@ -136,15 +136,91 @@ if len(vmList):
         print("\nLoops found: %d \n" % len(loopsFinal))
         count = 1
 
+        loopName = "Loop"
         for loop in loopsFinal:
             print("Loop number: %d" % count)
             print("Loop start address: %s \nLoop end address: %s \
             \nIterations of Loop: %d\n" % (loop[0], loop[2], loop[4]))
-
+            writeLoop = open(loopName + str(count) + ".txt", "w")
             # We cant get the loop instructions using the start and end index
             for i in range(loop[1], loop[3] + 1):
-                print(vmTrace[i].strip("\n"))
+                # print(vmTrace[i].strip("\n"))
+                writeLoop.write(vmTrace[i])
             count+=1
+
+        # Next we filter out some of the junk code from the VM
+        # I found a pattern for junk code where each read/write operation is surrounded by a few junk instructions.
+        # the block starts with moving the contents of EBP into a REG and ends at the next similar instruction.
+        # Between these two instructions only the instruction using the REG or EBP are real ones.
+        vmTraceLen = len(vmTrace)
+        insIndex = 0
+        jCount = 0
+        noJunk = open("noJunkTrace.txt", "w")
+
+        while insIndex < vmTraceLen:
+            line = vmTrace[insIndex]
+
+            if "MOV" in line and "EBP" in line and "DWORD" not in line:
+                ins = line.split()[2]
+                op1 = (line.split()[3]).split(",")[0]
+                op2 = (line.split()[3]).split(",")[1]
+
+                if "EBP" in op2:
+                    junkIndex = insIndex
+                    break
+            insIndex += 1
+        
+        for i in range(0, junkIndex):
+            noJunk.write(vmTrace[i])
+
+        # print(insIndex)
+        noJunk.write("\nJunk Removed from below\n")
+
+        while insIndex < vmTraceLen:
+            line = vmTrace[insIndex]
+
+
+            if "MOV" in line and "EBP" in line and "DWORD" not in line:
+                ins = line.split()[2]
+                op1 = (line.split()[3]).split(",")[0]
+                op2 = (line.split()[3]).split(",")[1]
+
+                if "EBP" in op2:
+                    Reg = op1
+                    junkBlock = True
+                    # print(line)
+                    noJunk.write(line)
+                    insIndex += 1
+                    while junkBlock and insIndex < vmTraceLen:
+                        line1 = vmTrace[insIndex]
+                        insIndex += 1
+                        if "EBP" not in line1:
+                            if Reg in line1 or "CMP" in line1 or "JE" in line1 or "JMP" in line1:
+                                noJunk.write(line1)
+                            # print(line1)
+                        else:
+                            jCount += 1
+                            junkBlock = False
+            insIndex += 1
+        noJunk.write("Junk removal complete.\n")
+        noJunk.close()
+
+        noJunk = open("noJunkTrace.txt", "r")
+
+        l = noJunk.readlines()[-2]
+        print(l)
+        lastAdd = l.split()[0]
+        noJunkLastIndex = 0
+        for line in vmTrace:
+            if lastAdd in line:
+                noJunkLastIndex = vmTrace.index(line)
+        noJunk.close()
+
+        noJunk = open("noJunkTrace.txt", "a+")
+        for i in range(noJunkLastIndex+1, vmTraceLen):
+            noJunk.write(vmTrace[i])
+        noJunk.close()
+
 
 
 else:
