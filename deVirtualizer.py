@@ -153,33 +153,38 @@ if len(vmList):
         # the block starts with moving the contents of EBP into a REG and ends at the next similar instruction.
         # Between these two instructions only the instruction using the REG or EBP are real ones.
         vmTraceLen = len(vmTrace)
-        insIndex = 0
-        jCount = 0
-        noJunk = open("noJunkTrace.txt", "w")
+        insIndex = 0    # Index to be used to skip through instructions
+        noJunk = open("noJunkTrace.txt", "w")   # File to write the trace after junk removal
 
         while insIndex < vmTraceLen:
             line = vmTrace[insIndex]
 
+            # Everythin until the first junk block is copied as if for now
+            # A junk block starts with MOV REG, EBP
             if "MOV" in line and "EBP" in line and "DWORD" not in line:
-                ins = line.split()[2]
-                op1 = (line.split()[3]).split(",")[0]
-                op2 = (line.split()[3]).split(",")[1]
+                ins = line.split()[2]   # MOV for junk blovk
+                op1 = (line.split()[3]).split(",")[0]   # REG for junk block    
+                op2 = (line.split()[3]).split(",")[1]   # EBP fro junk block
 
+                # The first Junk block index will be stored so as to copy
+                # the trace as is until the junk code start
                 if "EBP" in op2:
                     junkIndex = insIndex
                     break
             insIndex += 1
         
+        # Wrtie the trace from the first line until the start of junk code
         for i in range(0, junkIndex):
             noJunk.write(vmTrace[i])
 
         # print(insIndex)
-        noJunk.write("\nJunk Removed from below\n")
+        # noJunk.write("\nJunk Removed from below\n")
 
+        # Start removing the junk instructions in each block
         while insIndex < vmTraceLen:
             line = vmTrace[insIndex]
 
-
+            # Get the start of the block
             if "MOV" in line and "EBP" in line and "DWORD" not in line:
                 ins = line.split()[2]
                 op1 = (line.split()[3]).split(",")[0]
@@ -187,39 +192,48 @@ if len(vmList):
 
                 if "EBP" in op2:
                     Reg = op1
-                    junkBlock = True
+                    junkBlock = True    # Start of the block found
                     # print(line)
-                    noJunk.write(line)
+                    noJunk.write(line) 
                     insIndex += 1
+
+                    # iterate till the block ends
                     while junkBlock and insIndex < vmTraceLen:
                         line1 = vmTrace[insIndex]
                         insIndex += 1
-                        if "EBP" not in line1:
+                        if "EBP" not in line1: # Once the block starts EBP is not used until the next block
+
+                            # Only instructions with REG are important
                             if Reg in line1 or "CMP" in line1 or "JE" in line1 or "JMP" in line1:
                                 noJunk.write(line1)
                             # print(line1)
                         else:
-                            jCount += 1
+                            # Junk block completed, move to next block
                             junkBlock = False
             insIndex += 1
-        noJunk.write("Junk removal complete.\n")
+        # noJunk.write("Junk removal complete.\n")
         noJunk.close()
 
         noJunk = open("noJunkTrace.txt", "r")
 
+        # Write the remaining instructions after junk removal till the end of the vm run trace
         l = noJunk.readlines()[-2]
-        print(l)
         lastAdd = l.split()[0]
         noJunkLastIndex = 0
         for line in vmTrace:
             if lastAdd in line:
-                noJunkLastIndex = vmTrace.index(line)
+                noJunkLastIndex = vmTrace.index(line)   # index of last instruction after junk removal
         noJunk.close()
 
         noJunk = open("noJunkTrace.txt", "a+")
+        # append the remaining instructions of vm trace
         for i in range(noJunkLastIndex+1, vmTraceLen):
             noJunk.write(vmTrace[i])
         noJunk.close()
+
+        noJunkTraceLen = len((open("noJunkTrace.txt", "r")).readlines())
+        print("Original VM trace length: %d \nVM trace length after junk removal: %d \
+        \nNumber of junk instructions removed: %d \n" % (vmTraceLen, noJunkTraceLen, (vmTraceLen-noJunkTraceLen)))
 
 
 
