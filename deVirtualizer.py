@@ -11,6 +11,7 @@ This tool is designed to analyze code obfuscated with the Fish-White VM from Ore
 import os
 import sys
 import argparse
+import utils as u
 
 # Read the run-trace file as a command line argument
 ap = argparse.ArgumentParser()
@@ -84,19 +85,22 @@ if len(vmList):
         vm_file = "VM_" + vm[0] + "_" + vm[1] + ".txt"
         vmRead = open(vm_file, "r")
         vmTrace = vmRead.readlines()
+        mainHandler = "MainHandler_" + "_" + vm[0] + ".txt"
+        mainHandlerWrite = open(mainHandler, "w")
 
         # Printing the main handler of the VM
-        print("\nThe Main Handler of the VM:\n")
+        print("\nWriting the Main Handler of the VM.")
         for line in vmTrace:
             if(vmTrace.index(line) != 0):
-                print(line.strip("\n"))
+                # print(line.strip("\n"))
+                mainHandlerWrite.write(line)
                 if ("JMP" in line):
                     break
 
 
-        # Analyze the VMs and search for junk loops
+        # Analyze the VMs and search for dispatcher loops
         loops = []
-        print("\nSearching for loops in the VM...")
+        print("\nSearching for Dispatcher loop in the VM.")
 
         # Loops in assembly language often use TEST instruction to loop on a certain condition
         for line in vmTrace:
@@ -121,7 +125,7 @@ if len(vmList):
                         loopEnd = line.split()[0]   # End address of the loop
                         loopEndIndex = vmTrace.index(line)  # end index of loop in trace
                     else:
-                        done +=1
+                        done += 1
                         loopStartIndex = vmTrace.index(line)    # Start index of loop in trace
 
                     # if done=2 then both start and end of a loop are found
@@ -133,14 +137,15 @@ if len(vmList):
             loopsFinal.add((loop[0], loopStartIndex, loopEnd, loopEndIndex , loop[1]))
 
         # print all the loops found inside the VM
-        print("\nLoops found: %d \n" % len(loopsFinal))
+        # print("\nDispatcher Loop found: %d \n" % len(loopsFinal))
+        print("Dispatcher Loop found.")
         count = 1
 
-        loopName = "Loop"
+        loopName = "DispatcherLoop"
         for loop in loopsFinal:
-            print("Loop number: %d" % count)
+            # print("Loop number: %d" % count)
             print("Loop start address: %s \nLoop end address: %s \
-            \nIterations of Loop: %d\n" % (loop[0], loop[2], loop[4]))
+            \nIterations of Loop: %d\n" % (loop[0], loop[2], int(loop[4]) - 1))
             writeLoop = open(loopName + str(count) + ".txt", "w")
             # We cant get the loop instructions using the start and end index
             for i in range(loop[1], loop[3] + 1):
@@ -159,7 +164,7 @@ if len(vmList):
         while insIndex < vmTraceLen:
             line = vmTrace[insIndex]
 
-            # Everythin until the first junk block is copied as if for now
+            # Everything until the first junk block is copied as is for now
             # A junk block starts with MOV REG, EBP
             if "MOV" in line and "EBP" in line and "DWORD" not in line:
                 ins = line.split()[2]   # MOV for junk blovk
@@ -184,8 +189,11 @@ if len(vmList):
         while insIndex < vmTraceLen:
             line = vmTrace[insIndex]
 
+            if "JMP" in line:
+                noJunk.write(line)
+
             # Get the start of the block
-            if "MOV" in line and "EBP" in line and "DWORD" not in line:
+            elif "MOV" in line and "EBP" in line and "DWORD" not in line:
                 ins = line.split()[2]
                 op1 = (line.split()[3]).split(",")[0]
                 op2 = (line.split()[3]).split(",")[1]
@@ -231,9 +239,18 @@ if len(vmList):
             noJunk.write(vmTrace[i])
         noJunk.close()
 
-        noJunkTraceLen = len((open("noJunkTrace.txt", "r")).readlines())
+        noJunkTrace = open("noJunkTrace.txt", "r").readlines()
+        noJunkTraceLen = len(noJunkTrace)
         print("Original VM trace length: %d \nVM trace length after junk removal: %d \
         \nNumber of junk instructions removed: %d \n" % (vmTraceLen, noJunkTraceLen, (vmTraceLen-noJunkTraceLen)))
+
+        handlersUsed = []
+        registers = ["EAX", "EBX", "ECX", "EDX"]
+        for i in range(noJunkTraceLen):
+            if "JMP" in noJunkTrace[i] and u.checkIfRegPresent(noJunkTrace[i]) and "JMP" in noJunkTrace[i+1]:
+                print(noJunkTrace[i])
+                # print(noJunkTrace[i+1])
+            i += 1
 
 
 
