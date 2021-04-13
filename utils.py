@@ -9,18 +9,6 @@ def readVMTrace(vm):
     vmRead = open(vm_file, "r")
     return vmRead.readlines()
 
-def getMainHandler(vm, vmTrace):
-    mainHandler = "MainHandler_" + "_" + vm[0] + ".txt"
-    mainHandlerWrite = open(mainHandler, "w")
-
-    # Writing the main handler of the VM
-    print("\nWriting the Main Handler of the VM.")
-    for line in vmTrace:
-        if(vmTrace.index(line) != 0):
-            # print(line.strip("\n"))
-            mainHandlerWrite.write(line)
-            if ("JMP" in line):
-                break
 
 def checkIfRegPresent(traceLine):
     '''Checks if any of the registers is present in the instruction line or not'''
