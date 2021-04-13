@@ -12,6 +12,7 @@ import os
 import sys
 import argparse
 import utils as u
+import vmAnalyzer as a
 
 # Read the run-trace file as a command line argument
 ap = argparse.ArgumentParser()
@@ -29,7 +30,7 @@ except FileNotFoundError:
 # Get the total length of the trace
 trace_len = len(trace)
 
-vmList = u.searchVMs(trace, trace_len)
+vmList = a.searchVMs(trace, trace_len)
 
 # Analyzing all the VMs found
 if len(vmList):
