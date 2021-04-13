@@ -1,0 +1,88 @@
+0044CCAE Main     PUSHFD
+0044CCAF Main     PUSH 5242729B
+0044CCB4 Main     MOV DWORD PTR SS:[ESP],EBX
+0044CCB7 Main     SUB ESP,4
+0044CCBA Main     MOV DWORD PTR SS:[ESP],EDI
+0044CCBD Main     MOV DWORD PTR SS:[ESP],EAX
+0044CCC0 Main     MOV EAX,38                                ; EAX=00000038
+0044CCC5 Main     MOV DWORD PTR SS:[ESP+4],EAX
+0044CCC9 Main     POP EAX                                   ; EAX=00000002
+0044CCCA Main     PUSH 30DF5B4D
+0044CCCF Main     MOV DWORD PTR SS:[ESP],EAX
+0044CCD2 Main     PUSH EDX
+0044CCD3 Main     MOV EDX,67EC6                             ; EDX=00067EC6
+0044CCD8 Main     MOV DWORD PTR SS:[ESP+4],EDX
+0044CCDC Main     PUSH DWORD PTR SS:[ESP]
+0044CCDF Main     POP EDX                                   ; EDX=0040507B
+0044CCE0 Main     ADD ESP,4
+0044CCE3 Main     PUSH EDX
+0044CCE4 Main     MOV DWORD PTR SS:[ESP],EAX
+0044CCE7 Main     PUSH EBP
+0044CCE8 Main     PUSH ECX
+0044CCE9 Main     MOV ECX,5BF6F9EA                          ; ECX=5BF6F9EA
+0044CCEE Main     XOR ECX,7F89BFE5                          ; ECX=247F460F
+0044CCF4 Main     XOR ECX,972911E                           ; ECX=2D0DD711
+0044CCFA Main     MOV EBP,ECX                               ; EBP=2D0DD711
+0044CCFC Main     POP ECX                                   ; ECX=325C72A1
+0044CCFD Main     MOV DWORD PTR SS:[ESP+4],EBP
+0044CD01 Main     POP EBP                                   ; EBP=006AFF28
+0044CD02 Main     MOV DWORD PTR SS:[ESP],EAX
+0044CD05 Main     PUSH EDI
+0044CD06 Main     PUSH ESP
+0044CD07 Main     POP EDI                                   ; EDI=006AFEEC
+0044CD08 Main     PUSH EBX
+0044CD09 Main     PUSH 4
+0044CD0E Main     POP EBX                                   ; EBX=00000004
+0044CD0F Main     ADD EDI,EBX                               ; EDI=006AFEF0
+0044CD11 Main     POP EBX                                   ; EBX=0027F000
+0044CD12 Main     SUB EDI,4                                 ; EDI=006AFEEC
+0044CD15 Main     XCHG DWORD PTR SS:[ESP],EDI               ; EDI=004012E0
+0044CD18 Main     POP ESP
+0044CD19 Main     MOV DWORD PTR SS:[ESP],EBX
+0044CD1C Main     PUSH DWORD PTR SS:[ESP+10]
+0044CD20 Main     PUSH DWORD PTR SS:[ESP]
+0044CD23 Main     POP EAX                                   ; EAX=00000202
+0044CD24 Main     PUSH EDX
+0044CD25 Main     MOV EDX,ESP                               ; EDX=006AFEE4
+0044CD27 Main     ADD EDX,4                                 ; EDX=006AFEE8
+0044CD2D Main     ADD EDX,4                                 ; EDX=006AFEEC
+0044CD33 Main     PUSH EDX
+0044CD34 Main     PUSH DWORD PTR SS:[ESP+4]
+0044CD38 Main     POP EDX                                   ; EDX=0040507B
+0044CD39 Main     POP DWORD PTR SS:[ESP]
+0044CD3C Main     POP ESP
+0044CD3D Main     PUSH DWORD PTR SS:[ESP+8]
+0044CD41 Main     PUSH DWORD PTR SS:[ESP]
+0044CD44 Main     POP EBX                                   ; EBX=00067EC6
+0044CD45 Main     PUSH ECX
+0044CD46 Main     MOV DWORD PTR SS:[ESP],EBX
+0044CD49 Main     MOV EBX,ESP                               ; EBX=006AFEE4
+0044CD4B Main     ADD EBX,4                                 ; EBX=006AFEE8
+0044CD51 Main     ADD EBX,4                                 ; EBX=006AFEEC
+0044CD57 Main     XCHG DWORD PTR SS:[ESP],EBX               ; EBX=00067EC6
+0044CD5A Main     POP ESP
+0044CD5B Main     MOV DWORD PTR SS:[ESP+8],EAX
+0044CD5F Main     MOV DWORD PTR SS:[ESP+10],EBX
+0044CD63 Main     PUSH DWORD PTR SS:[ESP]
+0044CD66 Main     POP EBX                                   ; EBX=0027F000
+0044CD67 Main     PUSH EBP
+0044CD68 Main     MOV DWORD PTR SS:[ESP],EDX
+0044CD6B Main     MOV EDX,ESP                               ; EDX=006AFEE8
+0044CD6D Main     ADD EDX,4                                 ; EDX=006AFEEC
+0044CD73 Main     ADD EDX,4                                 ; EDX=006AFEF0
+0044CD79 Main     XCHG DWORD PTR SS:[ESP],EDX               ; EDX=0040507B
+0044CD7C Main     MOV ESP,DWORD PTR SS:[ESP]
+0044CD7F Main     PUSH DWORD PTR SS:[ESP]
+0044CD82 Main     POP EAX                                   ; EAX=00000002
+0044CD83 Main     PUSH ECX
+0044CD84 Main     MOV ECX,ESP                               ; ECX=006AFEEC
+0044CD86 Main     ADD ECX,4                                 ; ECX=006AFEF0
+0044CD8C Main     PUSH EBP
+0044CD8D Main     MOV EBP,4                                 ; EBP=00000004
+0044CD92 Main     ADD ECX,EBP                               ; ECX=006AFEF4
+0044CD94 Main     POP EBP                                   ; EBP=006AFF28
+0044CD95 Main     XOR ECX,DWORD PTR SS:[ESP]                ; ECX=32368C55
+0044CD98 Main     XOR DWORD PTR SS:[ESP],ECX
+0044CD9B Main     XOR ECX,DWORD PTR SS:[ESP]                ; ECX=325C72A1
+0044CD9E Main     POP ESP
+0044CD9F Main     JMP add_prot.00486F71

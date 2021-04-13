@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import utils as u
 def searchVMs(trace, trace_len):
 
     vm_start = vm_end = ""
@@ -102,16 +103,19 @@ def findDispatcher(vmTrace):
     count = 1
 
     loopName = "DispatcherLoop"
+    loopIter = 0
     for loop in loopsFinal:
         # print("Loop number: %d" % count)
         print("Loop start address: %s \nLoop end address: %s \
         \nIterations of Loop: %d\n" % (loop[0], loop[2], int(loop[4]) - 1))
+        loopIter = int(loop[4]) - 1
         writeLoop = open(loopName + str(count) + ".txt", "w")
         # We cant get the loop instructions using the start and end index
         for i in range(loop[1], loop[3] + 1):
             # print(vmTrace[i].strip("\n"))
             writeLoop.write(vmTrace[i])
         count+=1
+    return loopIter
 
 def removeJunk(vmTrace):
     
@@ -123,6 +127,7 @@ def removeJunk(vmTrace):
     insIndex = 0    # Index to be used to skip through instructions
     noJunk = open("noJunkTrace.txt", "w")   # File to write the trace after junk removal
 
+    print("Initializing junk removal from the VM trace.")
     while insIndex < vmTraceLen:
         line = vmTrace[insIndex]
 
@@ -207,5 +212,18 @@ def removeJunk(vmTrace):
     \nNumber of junk instructions removed: %d \n" % (vmTraceLen, noJunkTraceLen, (vmTraceLen-noJunkTraceLen)))
 
     return noJunkTrace, noJunkTraceLen
+
+def getHandlers(noJunkTrace, noJunkTraceLen):
+
+    handlers = set()
+    for i in range(noJunkTraceLen):
+        if "JMP" in noJunkTrace[i] and u.checkIfRegPresent(noJunkTrace[i]) and "JMP" in noJunkTrace[i+1]:
+            # This line at i+1 has the starting address of the handler
+            lineSplit = (noJunkTrace[i+1].split(" "))
+            handlerStart = lineSplit[7].split(".")[1].strip("\n")
+            handlers.add(handlerStart)
+        i += 1
+    # print(handlers)
+    return len(handlers), handlers
 
 

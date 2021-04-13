@@ -48,17 +48,12 @@ if len(vmList):
         
         a.getMainHandler(vm, vmTrace)
 
-        a.findDispatcher(vmTrace)
+        numHandlers = a.findDispatcher(vmTrace)
 
         noJunkTrace, noJunkTraceLen = a.removeJunk(vmTrace)
 
-        handlersUsed = []
-        registers = ["EAX", "EBX", "ECX", "EDX"]
-        for i in range(noJunkTraceLen):
-            if "JMP" in noJunkTrace[i] and u.checkIfRegPresent(noJunkTrace[i]) and "JMP" in noJunkTrace[i+1]:
-                print(noJunkTrace[i])
-                # print(noJunkTrace[i+1])
-            i += 1
+        numHandlersUsed, handlers = a.getHandlers(noJunkTrace, noJunkTraceLen)
+        print("%d handlers used out of %d handlers" % (numHandlersUsed, numHandlers))
 
 else:
     print("No VMs found!")

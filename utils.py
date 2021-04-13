@@ -9,7 +9,6 @@ def readVMTrace(vm):
     vmRead = open(vm_file, "r")
     return vmRead.readlines()
 
-
 def checkIfRegPresent(traceLine):
     '''Checks if any of the registers is present in the instruction line or not'''
     registers = ["EAX", "EBX", "ECX", "EDX"] # all available registers

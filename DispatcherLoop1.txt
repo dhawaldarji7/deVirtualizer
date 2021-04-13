@@ -1,0 +1,49 @@
+00487536 Main     TEST EBX,EBX
+00487538 Main     JE add_prot.004875C5
+0048753E Main     PUSH EDX
+0048753F Main     MOV EDX,0                                 ; EDX=00000000
+00487544 Main     ADD EDX,EAX                               ; EDX=0041935A
+00487546 Main     PUSH EBX
+00487547 Main     MOV EBX,0                                 ; EBX=00000000
+0048754C Main     ADD EBX,EDX                               ; EBX=0041935A
+0048754E Main     SUB ESP,4
+00487551 Main     MOV DWORD PTR SS:[ESP],EDX
+00487554 Main     MOV EDX,0                                 ; EDX=00000000
+00487559 Main     ADD EDX,EBX                               ; EDX=0041935A
+0048755B Main     PUSH EBX
+0048755C Main     MOV EBX,0                                 ; EBX=00000000
+00487561 Main     ADD EBX,EDX                               ; EBX=0041935A
+00487563 Main     ADD DWORD PTR DS:[EBX],ECX
+00487565 Main     POP EBX
+00487566 Main     POP EDX
+00487567 Main     POP EBX                                   ; EBX=00000094
+00487568 Main     POP EDX                                   ; EDX=0001935A
+00487569 Main     PUSH EDX
+0048756A Main     PUSH 4
+0048756F Main     POP EDX                                   ; EDX=00000004
+00487570 Main     SUB EAX,76F9D89C                          ; EAX=8947BABE
+00487575 Main     ADD EAX,EDX                               ; EAX=8947BAC2
+00487577 Main     ADD EAX,76F9D89C                          ; EAX=0041935E
+0048757C Main     MOV EDX,DWORD PTR SS:[ESP]                ; EDX=0001935A
+0048757F Main     PUSH EBX
+00487580 Main     MOV EBX,ESP                               ; EBX=006AFEC4
+00487582 Main     ADD EBX,4                                 ; EBX=006AFEC8
+00487588 Main     ADD EBX,4                                 ; EBX=006AFECC
+0048758B Main     XCHG DWORD PTR SS:[ESP],EBX               ; EBX=00000094
+0048758E Main     POP ESP
+0048758F Main     PUSH EBP
+00487590 Main     PUSH 1BE61D88
+00487595 Main     POP EBP                                   ; EBP=1BE61D88
+00487596 Main     OR EBP,7FAAE2E9                           ; EBP=7FEEFFE9
+0048759C Main     PUSH EDX
+0048759D Main     MOV EDX,7BD7E3F8                          ; EDX=7BD7E3F8
+004875A2 Main     AND EBP,EDX                               ; EBP=7BC6E3E8
+004875A4 Main     POP EDX                                   ; EDX=0001935A
+004875A5 Main     OR EBP,5BFA4488                           ; EBP=7BFEE7E8
+004875AB Main     ADD EBP,79CF339E                          ; EBP=F5CE1B86
+004875B1 Main     DEC EBP                                   ; EBP=F5CE1B85
+004875B2 Main     SUB EBP,F5CE1B86                          ; EBP=FFFFFFFF
+004875B8 Main     ADD EBX,EBP                               ; EBX=00000093
+004875BA Main     MOV EBP,DWORD PTR SS:[ESP]                ; EBP=00473D6A
+004875BD Main     ADD ESP,4
+004875C0 Main     JMP add_prot.00487536
