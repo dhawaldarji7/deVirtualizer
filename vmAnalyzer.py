@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import utils as u
+
 def searchVMs(trace, trace_len):
 
     vm_start = vm_end = ""
@@ -36,7 +37,7 @@ def searchVMs(trace, trace_len):
 
             # Create a separate trace file for each VM. File Format VM_startAddress_endAddress.txt
             vm_file = "VM_" + vm_start + "_" + vm_end + ".txt"
-            writeVM = open(vm_file, "w")
+            writeVM = open("./output/" + vm_file, "w")
             for i in range(vm_start_lineno, vm_end_lineno + 1):
                 writeVM.write(trace[i])
             vm_start_lineno = vm_end_lineno = 0
@@ -46,7 +47,7 @@ def searchVMs(trace, trace_len):
 
 def getMainHandler(vm, vmTrace):
     mainHandler = "MainHandler_" + "_" + vm[0] + ".txt"
-    mainHandlerWrite = open(mainHandler, "w")
+    mainHandlerWrite = open("./output/" + mainHandler, "w")
 
     # Writing the main handler of the VM
     print("\nWriting the Main Handler of the VM.")
@@ -109,7 +110,7 @@ def findDispatcher(vmTrace):
         print("Loop start address: %s \nLoop end address: %s \
         \nIterations of Loop: %d\n" % (loop[0], loop[2], int(loop[4]) - 1))
         loopIter = int(loop[4]) - 1
-        writeLoop = open(loopName + str(count) + ".txt", "w")
+        writeLoop = open("./output/" + loopName + str(count) + ".txt", "w")
         # We cant get the loop instructions using the start and end index
         for i in range(loop[1], loop[3] + 1):
             # print(vmTrace[i].strip("\n"))
@@ -125,7 +126,7 @@ def removeJunk(vmTrace):
     # Between these two instructions only the instruction using the REG or EBP are real ones.
     vmTraceLen = len(vmTrace)
     insIndex = 0    # Index to be used to skip through instructions
-    noJunk = open("noJunkTrace.txt", "w")   # File to write the trace after junk removal
+    noJunk = open("./output/noJunkTrace.txt", "w")   # File to write the trace after junk removal
 
     print("Initializing junk removal from the VM trace.")
     while insIndex < vmTraceLen:
@@ -189,7 +190,7 @@ def removeJunk(vmTrace):
     # noJunk.write("Junk removal complete.\n")
     noJunk.close()
 
-    noJunk = open("noJunkTrace.txt", "r")
+    noJunk = open("./output/noJunkTrace.txt", "r")
 
     # Write the remaining instructions after junk removal till the end of the vm run trace
     l = noJunk.readlines()[-2]
@@ -200,13 +201,13 @@ def removeJunk(vmTrace):
             noJunkLastIndex = vmTrace.index(line)   # index of last instruction after junk removal
     noJunk.close()
 
-    noJunk = open("noJunkTrace.txt", "a+")
+    noJunk = open("./output/noJunkTrace.txt", "a+")
     # append the remaining instructions of vm trace
     for i in range(noJunkLastIndex+1, vmTraceLen):
         noJunk.write(vmTrace[i])
     noJunk.close()
 
-    noJunkTrace = open("noJunkTrace.txt", "r").readlines()
+    noJunkTrace = open("./output/noJunkTrace.txt", "r").readlines()
     noJunkTraceLen = len(noJunkTrace)
     print("Original VM trace length: %d \nVM trace length after junk removal: %d \
     \nNumber of junk instructions removed: %d \n" % (vmTraceLen, noJunkTraceLen, (vmTraceLen-noJunkTraceLen)))

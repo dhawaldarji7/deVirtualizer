@@ -19,6 +19,9 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-t", dest = 'tracefile', metavar="run_trace_file", required=True, help="the run trace file")
 args = ap.parse_args()
 
+if not os.path.exists("./output"):
+    os.mkdir("output")
+
 # Read the trace file provided
 try:
     trace_file = open(args.tracefile, "r")
