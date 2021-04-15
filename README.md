@@ -1,5 +1,5 @@
 # deVirtualizer
-### Still in the very early stages of development!
+### Under development!
 
 A Deobfuscator for a Virtual Machine based Obfuscator
 Author: Dhawal Darji
