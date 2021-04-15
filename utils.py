@@ -6,7 +6,7 @@ def printVMInfo(vm, index):
 def readVMTrace(vm):
     # Open trace of each VM. VM trace format VM_startAddress_endAddress.txt
     vm_file = "VM_" + vm[0] + "_" + vm[1] + ".txt"
-    vmRead = open(vm_file, "r")
+    vmRead = open("./output/" + vm_file, "r")
     return vmRead.readlines()
 
 def checkIfRegPresent(traceLine):
@@ -15,4 +15,4 @@ def checkIfRegPresent(traceLine):
     check = False
     traceLineSplit = traceLine.split(" ")   # split trace line into tokens
     check = any(r == traceLineSplit[7].strip("\n") for r in registers)
-    return check
+    return check  

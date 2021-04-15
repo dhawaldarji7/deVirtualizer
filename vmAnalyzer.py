@@ -225,6 +225,11 @@ def getHandlers(noJunkTrace, noJunkTraceLen):
             handlers.add(handlerStart)
         i += 1
     # print(handlers)
+
+    for handler in handlers:
+        for line in noJunkTrace:
+            if handler in line and "JMP" in line:
+                print(line)
     return len(handlers), handlers
 
 
