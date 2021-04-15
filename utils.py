@@ -1,12 +1,16 @@
 #!/usr/bin/python3
 
+import os
+
 def printVMInfo(vm, index):
     print("\nVM number: {}  VM_ENTRY: {}  VM_EXIT: {}".format(index, vm[0], vm[1]))
 
 def readVMTrace(vm):
+
     # Open trace of each VM. VM trace format VM_startAddress_endAddress.txt
     vm_file = "VM_" + vm[0] + "_" + vm[1] + ".txt"
-    vmRead = open("./output/" + vm_file, "r")
+    vmDir = "VM_" + vm[0] + "_" + vm[1]
+    vmRead = open("./output/VMs/" + vmDir + "/" + vm_file, "r")
     return vmRead.readlines()
 
 def checkIfRegPresent(traceLine):

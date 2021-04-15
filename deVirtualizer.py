@@ -51,11 +51,11 @@ if len(vmList):
         
         a.getMainHandler(vm, vmTrace)
 
-        numHandlers = a.findDispatcher(vmTrace)
+        numHandlers = a.findDispatcher(vm, vmTrace)
 
-        noJunkTrace, noJunkTraceLen = a.removeJunk(vmTrace)
+        noJunkTrace, noJunkTraceLen = a.removeJunk(vm, vmTrace)
 
-        numHandlersUsed, handlers = a.getHandlers(noJunkTrace, noJunkTraceLen)
+        numHandlersUsed, handlers = a.getHandlers(vm, noJunkTrace, noJunkTraceLen)
         print("%d handlers used out of %d handlers" % (numHandlersUsed, numHandlers))
 
 else:

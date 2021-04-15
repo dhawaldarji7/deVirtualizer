@@ -1,0 +1,25 @@
+00474DE5 Main     JMP add_prot.004481A9
+004481A9 Main     MOV EDI,EBP                               ; EDI=00473D6A
+004481AB Main     ADD EDI,2C                                ; EDI=00473D96
+004481B1 Main     MOV EDI,DWORD PTR DS:[EDI]                ; EDI=0046D9F3
+004481B3 Main     ADD EDI,0
+004481B9 Main     MOV ESI,DWORD PTR DS:[EDI]                ; ESI=000014B6
+004481C9 Main     MOV EBX,EBP                               ; EBX=00473D6A
+004481CB Main     ADD EBX,2C                                ; EBX=00473D96
+004481D1 Main     MOV EBX,DWORD PTR DS:[EBX]                ; EBX=0046D9F3
+004481D3 Main     ADD EBX,4                                 ; EBX=0046D9F7
+004481D9 Main     MOV DI,WORD PTR DS:[EBX]                  ; EDI=00000020
+004481D9 Main     MOV DI,WORD PTR DS:[EBX]                  ; EDI=00000020
+004481DC Main     ADD EDI,ESP                               ; EDI=006AFEFC
+004481DE Main     MOV DWORD PTR DS:[EDI],ESI
+004481E0 Main     MOV ECX,EBP                               ; ECX=00473D6A
+004481E2 Main     ADD ECX,70                                ; ECX=00473DDA
+004481E8 Main     MOV DWORD PTR DS:[ECX],0
+004481EE Main     POP EDI                                   ; EDI=004012E0
+004481EF Main     POP ESI                                   ; ESI=004012E0
+004481F0 Main     POP EBP                                   ; EBP=006AFF28
+004481F1 Main     POP EBX                                   ; EBX=0027F000
+004481F2 Main     POP EDX                                   ; EDX=000003EC
+004481F3 Main     POP ECX                                   ; ECX=325C72A1
+004481F4 Main     POP EAX                                   ; EAX=00000BB8
+004481F5 Main     POPFD

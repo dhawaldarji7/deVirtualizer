@@ -1,0 +1,245 @@
+0046BC0E Main     JMP add_prot.0042EA2E
+0042EA2E Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042EA54 Main     MOV EAX,EBP
+0042EABD Main     MOV EBX,EBP                               ; EBX=00473D6A
+0042EABF Main     ADD EBX,51                                ; EBX=00473DBB
+0042EAC5 Main     SUB BYTE PTR DS:[EBX],AL
+0042EAD5 Main     XOR ESI,EBX                               ; ESI=00473DBB
+0042EB15 Main     MOV EBX,EBP                               ; EBX=00473D6A
+0042EB1D Main     ADD ESI,EBX                               ; ESI=00473D6A
+0042EB2A Main     ADD EBX,96                                ; EBX=00473E00
+0042EB30 Main     OR DWORD PTR DS:[EBX],EAX
+0042EBA9 Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042EBAB Main     ADD EDX,96                                ; EDX=00473E00
+0042EBB1 Main     XOR DWORD PTR DS:[EDX],535E60DD
+0042EC0F Main     MOV EAX,EBP                               ; EAX=00473D6A
+0042EC15 Main     SUB ESI,EAX                               ; ESI=FFB8C2AB
+0042EC19 Main     ADD EAX,96                                ; EAX=00473E00
+0042EC2B Main     ADD EDX,EAX                               ; EDX=00474000
+0042EC2D Main     ADD ECX,DWORD PTR DS:[EAX]                ; ECX=EFF33657
+0042EC8E Main     MOV EAX,EBP                               ; EAX=00473D6A
+0042ECA3 Main     ADD EAX,96                                ; EAX=00473E00
+0042ECA8 Main     ADD DWORD PTR DS:[EAX],ECX
+0042ECF7 Main     MOV EAX,EBP                               ; EAX=00473D6A
+0042ECFF Main     ADD EAX,9A                                ; EAX=00473E04
+0042ED04 Main     XOR ECX,DWORD PTR DS:[EAX]                ; ECX=0000001F
+0042ED36 Main     MOV EDI,EBP                               ; EDI=00473D6A
+0042ED38 Main     ADD EDI,78                                ; EDI=00473DE2
+0042ED4E Main     XOR ECX,DWORD PTR DS:[EDI]                ; ECX=59C62FCB
+0042ED5C Main     AND ESI,EDI                               ; ESI=00000000
+0042ED92 Main     MOV EDI,EBP                               ; EDI=00473D6A
+0042ED96 Main     ADD EDI,0B6                               ; EDI=00473E20
+0042EDA8 Main     MOV DWORD PTR DS:[EDI],ECX
+0042EDB8 Main     MOV EAX,EBP                               ; EAX=00473D6A
+0042EDBA Main     ADD EAX,52                                ; EAX=00473DBC
+0042EDBF Main     OR DWORD PTR DS:[EAX],ECX
+0042EDF8 Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042EE02 Main     ADD EDX,96                                ; EDX=00473E00
+0042EE13 Main     XOR EBX,DWORD PTR DS:[EDX]                ; EBX=B638BD95
+0042EE3D Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042EE45 Main     ADD EDX,24                                ; EDX=00473D8E
+0042EE51 Main     SUB EBX,DWORD PTR DS:[EDX]                ; EBX=2C123391
+0042EE58 Main     OR ECX,EDX                                ; ECX=B67FBD8E
+0042EEA2 Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042EEBC Main     ADD EDX,11                                ; EDX=00473D7B
+0042EEC2 Main     ADD ESI,EDX                               ; ESI=00483C88
+0042EED6 Main     OR DWORD PTR DS:[EDX],103AF11E
+0042EEE2 Main     MOV EDX,200                               ; EDX=00000200
+0042EEE7 Main     MOV EDX,1                                 ; EDX=00000001
+0042EF17 Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042EF1D Main     ADD EDX,9A                                ; EDX=00473E04
+0042EF28 Main     AND DWORD PTR DS:[EDX],0E6B9813
+0042EF4A Main     MOV ESI,EBP                               ; ESI=00473D6A
+0042EF5E Main     ADD ESI,2C                                ; ESI=00473D96
+0042EF6A Main     MOV ESI,DWORD PTR DS:[ESI]                ; ESI=00466EBD
+0042EF76 Main     ADD ESI,13                                ; ESI=00466ED0
+0042EF90 Main     MOVZX EAX,BYTE PTR DS:[ESI]               ; EAX=0000003C
+0042EFE4 Main     MOV EDI,EBP                               ; EDI=00473D6A
+0042EFFA Main     MOV EDX,EDI                               ; EDX=00473D6A
+0042EFFC Main     ADD EDI,11                                ; EDI=00473D7B
+0042F01A Main     ADD EAX,DWORD PTR DS:[EDI]                ; EAX=81E67F13
+0042F052 Main     MOV EDI,EBP                               ; EDI=00473D6A
+0042F05C Main     ADD EDI,11                                ; EDI=00473D7B
+0042F068 Main     ADD DWORD PTR DS:[EDI],59B1FCFF
+0042F0BB Main     MOV EBX,EBP                               ; EBX=00473D6A
+0042F0CB Main     ADD EBX,9A                                ; EBX=00473E04
+0042F0DF Main     ADD DWORD PTR DS:[EBX],6B7A7DEF
+0042F12E Main     MOV EBX,0                                 ; EBX=00000000
+0042F15E Main     MOV EAX,EBP                               ; EAX=00473D6A
+0042F16A Main     ADD EAX,4                                 ; EAX=00473D6E
+0042F175 Main     MOV BYTE PTR DS:[EAX],CL
+0042F1C7 Main     MOV ESI,EBP                               ; ESI=00473D6A
+0042F1D0 Main     ADD ESI,96                                ; ESI=00473E00
+0042F1D6 Main     XOR ECX,ESI                               ; ECX=00473E06
+0042F227 Main     MOV ESI,EBP                               ; ESI=00473D6A
+0042F229 Main     AND EDI,ESI                               ; EDI=00000000
+0042F22B Main     ADD ESI,96                                ; ESI=00473E00
+0042F23E Main     SUB DWORD PTR DS:[ESI],EDX
+0042F283 Main     MOV ECX,EBP                               ; ECX=00473D6A
+0042F285 Main     ADD ECX,9A                                ; ECX=00473E04
+0042F313 Main     MOV ECX,EBP                               ; ECX=00473D6A
+0042F333 Main     ADD ECX,5D                                ; ECX=00473DC7
+0042F345 Main     MOV BYTE PTR DS:[ECX],DL
+0042F349 Main     MOV EDI,ECX                               ; EDI=00473DC7
+0042F35F Main     MOV ESI,EBP                               ; ESI=00473D6A
+0042F367 Main     ADD ESI,2C                                ; ESI=00473D96
+0042F37E Main     MOV ESI,DWORD PTR DS:[ESI]                ; ESI=00466EBD
+0042F39E Main     ADD ESI,0E                                ; ESI=00466ECB
+0042F3AF Main     ADD EBX,ESI                               ; EBX=004672CB
+0042F3B9 Main     MOV EAX,DWORD PTR DS:[ESI]                ; EAX=100AF4FD
+0042F3E7 Main     MOV ESI,EBP                               ; ESI=00473D6A
+0042F3E9 Main     ADD ESI,52                                ; ESI=00473DBC
+0042F3F1 Main     SUB EAX,DWORD PTR DS:[ESI]                ; EAX=8AA62E42
+0042F416 Main     MOV ESI,EBP                               ; ESI=00473D6A
+0042F422 Main     ADD ESI,11                                ; ESI=00473D7B
+0042F42E Main     XOR DWORD PTR DS:[ESI],6FA9B8AA
+0042F436 Main     AND ECX,ESI                               ; ECX=00000020
+0042F438 Main     SUB EBX,ESI                               ; EBX=EFF43FCE
+0042F46A Main     MOV ESI,EBP                               ; ESI=00473D6A
+0042F46E Main     ADD ESI,9A                                ; ESI=00473E04
+0042F480 Main     SUB DWORD PTR DS:[ESI],4CA46B40
+0042F486 Main     MOV ESI,0                                 ; ESI=00000000
+0042F49C Main     XOR EBX,ESI
+0042F4C2 Main     MOV ECX,EBP                               ; ECX=00473D6A
+0042F4CA Main     ADD ESI,ECX                               ; ESI=00473D6A
+0042F4CE Main     ADD ECX,78                                ; ECX=00473DE2
+0042F4DA Main     SUB EAX,DWORD PTR DS:[ECX]                ; EAX=35531AF0
+0042F4F2 Main     MOV EDI,EBP                               ; EDI=00473D6A
+0042F4FA Main     ADD EDI,62                                ; EDI=00473DCC
+0042F500 Main     MOV BYTE PTR DS:[EDI],0
+0042F505 Main     MOV EDI,ECX                               ; EDI=00473DE2
+0042F507 Main     ADD EDI,ESI                               ; EDI=EFF44149
+0042F55A Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042F573 Main     ADD EDX,9E                                ; EDX=00473E08
+0042F57B Main     MOV EBX,DWORD PTR DS:[EDX]                ; EBX=35531AF0
+0042F5B3 Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042F5B5 Main     ADD EDX,0A2                               ; EDX=00473E0C
+0042F5C1 Main     SUB EBX,DWORD PTR DS:[EDX]                ; EBX=58275D86
+0042F605 Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042F619 Main     ADD EDX,0A2                               ; EDX=00473E0C
+0042F61F Main     MOV DWORD PTR DS:[EDX],EBX
+0042F632 Main     MOV EDI,EDX                               ; EDI=00473E0C
+0042F651 Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042F65B Main     SUB EDI,EDX                               ; EDI=EFAF427A
+0042F662 Main     ADD EDX,78                                ; EDX=00473DE2
+0042F677 Main     SUB EBX,DWORD PTR DS:[EDX]                ; EBX=C022C553
+0042F896 Main     MOV EBX,EBP                               ; EBX=00473D6A
+0042F8AA Main     ADD EBX,4C                                ; EBX=00473DB6
+0042F8B8 Main     MOV CL,BYTE PTR DS:[EBX]                  ; ECX=00474012
+0042F8BA Main     SUB EDX,EBX                               ; EDX=EF6888C3
+0042F8C5 Main     CMP CL,1
+0042F906 Main     MOV EBX,EBP                               ; EBX=00473D6A
+0042F908 Main     ADD EBX,44                                ; EBX=00473DAE
+0042F91E Main     ADD ESI,DWORD PTR DS:[EBX]                ; ESI=59C62FCB
+0042F964 Main     MOV EBX,EBP                               ; EBX=00473D6A
+0042F966 Main     ADD EBX,78                                ; EBX=00473DE2
+0042F96C Main     XOR ESI,DWORD PTR DS:[EBX]                ; ESI=59ACD0D4
+0042F97B Main     SUB EDI,EBX                               ; EDI=FFB8C191
+0042F9CE Main     MOV EBX,EBP                               ; EBX=00473D6A
+0042F9E4 Main     ADD EBX,0B6                               ; EBX=00473E20
+0042F9FC Main     MOV DWORD PTR DS:[EBX],ESI
+0042FA3B Main     MOV EDX,EBP                               ; EDX=00473D6A
+0042FA50 Main     ADD EDX,5D                                ; EDX=00473DC7
+0042FA61 Main     SUB ESI,EDX                               ; ESI=FFB8C23B
+0042FA63 Main     MOV AL,BYTE PTR DS:[EDX]                  ; EAX=000000F8
+0042FA67 Main     CMP AL,2
+0042FED3 Main     MOV ESI,EBP                               ; ESI=00473D6A
+0042FED9 Main     ADD ESI,52                                ; ESI=00473DBC
+0042FF07 Main     MOV ESI,EBP                               ; ESI=00473D6A
+0042FF21 Main     ADD ESI,96                                ; ESI=00473E00
+0042FF4D Main     CMP DWORD PTR DS:[ECX],EDX
+0042FF55 Main     MOV ECX,DWORD PTR DS:[ESI]                ; ECX=8A820600
+0042FF9D Main     MOV EDI,EBP                               ; EDI=00473D6A
+0042FFAB Main     ADD EDI,23                                ; EDI=00473D8D
+0042FFB3 Main     MOV BL,BYTE PTR DS:[EDI]                  ; EBX=00473EDF
+0042FFCE Main     CMP BL,0
+004302BF Main     OR EDI,EDX
+004304D8 Main     MOV EDI,EBP                               ; EDI=00473D6A
+004304E2 Main     ADD EDI,23                                ; EDI=00473D8D
+004304F4 Main     ADD EAX,EDI                               ; EAX=8AC748C5
+004304F6 Main     MOV DL,BYTE PTR DS:[EDI]                  ; EDX=00020DDF
+0043052F Main     CMP DL,0
+00430781 Main     OR EDI,EBX                                ; EDI=00473F9D
+00430A64 Main     MOV EDI,EBP                               ; EDI=00473D6A
+00430A66 Main     OR ESI,EDI                                ; ESI=00473D6A
+00430A68 Main     ADD EDI,23                                ; EDI=00473D8D
+00430A8B Main     MOV BL,BYTE PTR DS:[EDI]                  ; EBX=00473DDF
+00430A98 Main     CMP BL,0
+00430D7F Main     XOR EDI,EAX                               ; EDI=00000760
+00431011 Main     MOV EDX,EBP                               ; EDX=00473D6A
+00431013 Main     ADD EDX,96                                ; EDX=00473E00
+00431019 Main     MOV EDI,DWORD PTR DS:[EDX]                ; EDI=8A820600
+00431025 Main     MOV EDX,EBP                               ; EDX=00473D6A
+00431027 Main     ADD EDX,96                                ; EDX=00473E00
+0043102D Main     MOV DWORD PTR DS:[EDX],ECX
+00431039 Main     MOV ESI,EBP                               ; ESI=00473D6A
+00431047 Main     ADD ESI,23                                ; ESI=00473D8D
+00431052 Main     MOV BL,BYTE PTR DS:[ESI]                  ; EBX=00473DDF
+0043107D Main     CMP BL,0
+004313E3 Main     OR ESI,0FFFF                              ; ESI=0047FFFF
+004313EB Main     MOV ESI,ESI
+0043168B Main     MOV EDI,EBP                               ; EDI=00473D6A
+0043168D Main     ADD EDI,23                                ; EDI=00473D8D
+0043169E Main     MOV AL,BYTE PTR DS:[EDI]                  ; EAX=00473ADF
+004316D0 Main     CMP AL,0
+0043192C Main     ADD EDI,93                                ; EDI=00473E20
+00431BCC Main     MOV ESI,EBP                               ; ESI=00473D6A
+00431BD0 Main     ADD ESI,23                                ; ESI=00473D8D
+00431BE8 Main     MOV DL,BYTE PTR DS:[ESI]                  ; EDX=00453DDF
+00431C07 Main     XOR EDI,ESI                               ; EDI=00473A2F
+00431C23 Main     CMP DL,0
+00431ED5 Main     MOV EDI,EBP                               ; EDI=00473D6A
+00431ED7 Main     ADD EDI,23                                ; EDI=00473D8D
+00431EDD Main     CMP ECX,0
+00431EE3 Main     JE add_prot.00431EF7
+00431EF7 Main     MOV DL,BYTE PTR DS:[EDI]                  ; EDX=00453DDF
+00431F02 Main     CMP DL,0
+00432334 Main     MOV EBX,EBP                               ; EBX=00473D6A
+00432336 Main     ADD EBX,23                                ; EBX=00473D8D
+00432348 Main     MOV CL,BYTE PTR DS:[EBX]                  ; ECX=000000DF
+0043235F Main     CMP CL,0
+00432391 Main     MOV EBX,EBP                               ; EBX=00473D6A
+004323AB Main     ADD EBX,44                                ; EBX=00473DAE
+004323BC Main     ADD EAX,DWORD PTR DS:[EBX]                ; EAX=59ACD0D4
+00432400 Main     MOV EBX,EBP                               ; EBX=00473D6A
+00432408 Main     ADD EBX,51                                ; EBX=00473DBB
+0043241C Main     MOV AL,BYTE PTR DS:[EBX]                  ; EAX=00D5FE04
+0043241E Main     CMP AL,0D5
+004324B7 Main     MOV EBX,EBP                               ; EBX=00473D6A
+004324C7 Main     ADD EBX,23                                ; EBX=00473D8D
+004324D5 Main     MOV CL,BYTE PTR DS:[EBX]                  ; ECX=000000DF
+00432502 Main     CMP CL,0
+00432977 Main     MOV EDI,EBP                               ; EDI=00473D6A
+00432987 Main     ADD EDI,23                                ; EDI=00473D8D
+004329A7 Main     MOV AL,BYTE PTR DS:[EDI]                  ; EAX=8F5503DF
+004329DD Main     CMP AL,0
+00432C13 Main     OR EDI,EBX
+00432F28 Main     MOV ESI,EBP                               ; ESI=00473D6A
+00432F79 Main     MOV ESI,EBP                               ; ESI=00473D6A
+00432F83 Main     ADD ESI,23                                ; ESI=00473D8D
+00432F99 Main     MOV CL,BYTE PTR DS:[ESI]                  ; ECX=70AAFCDF
+0043304D Main     MOV ESI,EBP                               ; ESI=00473D6A
+0043304F Main     AND EBX,ESI                               ; EBX=00450042
+00433055 Main     ADD ESI,51                                ; ESI=00473DBB
+0043306F Main     MOV DL,BYTE PTR DS:[ESI]                  ; EDX=8F550304
+00433071 Main     CMP DL,0D5
+00433127 Main     MOV EAX,EBP                               ; EAX=00473D6A
+00433139 Main     ADD EAX,63                                ; EAX=00473DCD
+00433264 Main     MOV ECX,EBP                               ; ECX=00473D6A
+00433273 Main     ADD ECX,2C                                ; ECX=00473D96
+00433288 Main     MOV ECX,DWORD PTR DS:[ECX]                ; ECX=00466EBD
+0043328A Main     ADD ECX,6                                 ; ECX=00466EC3
+0043329C Main     MOV EAX,DWORD PTR DS:[ECX]                ; EAX=0000D83D
+0043330D Main     MOV EBX,EBP                               ; EBX=00473D6A
+0043331D Main     ADD EBX,51                                ; EBX=00473DBB
+00433323 Main     ADD BYTE PTR DS:[EBX],AL
+00433327 Main     ADD EDI,EBX                               ; EDI=00473DB3
+0043332F Main     ADD EDX,EBX                               ; EDX=00473DBB
+004333B8 Main     MOV EDX,EBP                               ; EDX=00473D6A
+004333BA Main     ADD EDX,96                                ; EDX=00473E00
+004333C0 Main     AND DWORD PTR DS:[EDX],EAX
+004333E8 Main     MOV EBX,EBP                               ; EBX=00473D6A
+004333F0 Main     OR EAX,EBX                                ; EAX=14FF7F6B
+004333F2 Main     ADD EBX,86                                ; EBX=00473DF0
+004333F8 Main     MOV EDX,DWORD PTR DS:[EBX]                ; EDX=00474A2A
+004333FA Main     JMP EDX

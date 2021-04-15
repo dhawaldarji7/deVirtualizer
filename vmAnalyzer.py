@@ -1,13 +1,20 @@
 #!/usr/bin/python3
 
+import os
 import utils as u
 
+
+### Searching for Virtual Machines in the given trace ###
 def searchVMs(trace, trace_len):
 
     vm_start = vm_end = ""
     vm_start_lineno = vm_end_lineno = 0
     startFound = endFound = False
     vmCount, vmList = 0, []
+
+    vmPath = "./output/VMs/"
+    if not os.path.exists(vmPath):
+        os.mkdir(vmPath)
 
     # Look up the trace for Virtual Machine's
     print("\nLength of original trace:", trace_len)
@@ -37,7 +44,12 @@ def searchVMs(trace, trace_len):
 
             # Create a separate trace file for each VM. File Format VM_startAddress_endAddress.txt
             vm_file = "VM_" + vm_start + "_" + vm_end + ".txt"
-            writeVM = open("./output/" + vm_file, "w")
+            vmDir = "VM_" + vm_start + "_" + vm_end + "/"
+
+            if not os.path.exists(vmPath + vmDir):
+                os.mkdir(vmPath + vmDir)
+
+            writeVM = open(vmPath + vmDir + vm_file, "w")
             for i in range(vm_start_lineno, vm_end_lineno + 1):
                 writeVM.write(trace[i])
             vm_start_lineno = vm_end_lineno = 0
@@ -45,9 +57,17 @@ def searchVMs(trace, trace_len):
     print("VM search completed...!")
     return vmList
 
+
+### Find the Main Handler of the Virtual Machine ###
+
+# The main handler is used to perform the context switch operation from normal execution to VM bases execution
+# Upon completion of the VM execution the context is switched back to the normal code execution
+
 def getMainHandler(vm, vmTrace):
-    mainHandler = "MainHandler_" + "_" + vm[0] + ".txt"
-    mainHandlerWrite = open("./output/" + mainHandler, "w")
+    mainHandler = "MainHandler.txt"
+    vmPath = "./output/VMs/"
+    vmDir = "VM_" + vm[0] + "_" + vm[1] + "/"
+    mainHandlerWrite = open(vmPath + vmDir + "/" + mainHandler, "w")
 
     # Writing the main handler of the VM
     print("\nWriting the Main Handler of the VM.")
@@ -58,7 +78,12 @@ def getMainHandler(vm, vmTrace):
             if ("JMP" in line):
                 break
 
-def findDispatcher(vmTrace):
+
+### Find the dispatcher of the Virtual Machine ###
+
+# The dispatcher is a loop which initializes the handlers.
+
+def findDispatcher(vm, vmTrace):
 
     # Analyze the VMs and search for dispatcher loops
     loops = []
@@ -103,6 +128,11 @@ def findDispatcher(vmTrace):
     print("Dispatcher Loop found.")
     count = 1
 
+    vmPath = "./output/VMs/"
+    vmDir = "VM_" + vm[0] + "_" + vm[1] + "/"
+    if not os.path.exists(vmPath +vmDir):
+        os.mkdir(vmPath + vmDir)
+
     loopName = "DispatcherLoop"
     loopIter = 0
     for loop in loopsFinal:
@@ -110,7 +140,7 @@ def findDispatcher(vmTrace):
         print("Loop start address: %s \nLoop end address: %s \
         \nIterations of Loop: %d\n" % (loop[0], loop[2], int(loop[4]) - 1))
         loopIter = int(loop[4]) - 1
-        writeLoop = open("./output/" + loopName + str(count) + ".txt", "w")
+        writeLoop = open(vmPath + vmDir + loopName + ".txt", "w")
         # We cant get the loop instructions using the start and end index
         for i in range(loop[1], loop[3] + 1):
             # print(vmTrace[i].strip("\n"))
@@ -118,7 +148,12 @@ def findDispatcher(vmTrace):
         count+=1
     return loopIter
 
-def removeJunk(vmTrace):
+
+### Remove junk instructions from the Virtual Machine ###
+
+# The Virtual Machine introduces some junk code to obfsucate and make the instructions complex
+
+def removeJunk(vm, vmTrace):
     
     # Next we filter out some of the junk code from the VM
     # I found a pattern for junk code where each read/write operation is surrounded by a few junk instructions.
@@ -126,7 +161,13 @@ def removeJunk(vmTrace):
     # Between these two instructions only the instruction using the REG or EBP are real ones.
     vmTraceLen = len(vmTrace)
     insIndex = 0    # Index to be used to skip through instructions
-    noJunk = open("./output/noJunkTrace.txt", "w")   # File to write the trace after junk removal
+    vmPath = "./output/VMs/"
+    vmDir = "VM_" + vm[0] + "_" + vm[1] + "/"
+    if not os.path.exists(vmPath + vmDir):
+        os.mkdir(vmPath + vmDir)
+
+    traceFile = "noJunkVM_" + vm[0] + "_" + vm[1] + ".txt"
+    noJunk = open(vmPath + vmDir + traceFile, "w")   # File to write the trace after junk removal
 
     print("Initializing junk removal from the VM trace.")
     while insIndex < vmTraceLen:
@@ -190,7 +231,7 @@ def removeJunk(vmTrace):
     # noJunk.write("Junk removal complete.\n")
     noJunk.close()
 
-    noJunk = open("./output/noJunkTrace.txt", "r")
+    noJunk = open(vmPath + vmDir + traceFile, "r")
 
     # Write the remaining instructions after junk removal till the end of the vm run trace
     l = noJunk.readlines()[-2]
@@ -201,22 +242,28 @@ def removeJunk(vmTrace):
             noJunkLastIndex = vmTrace.index(line)   # index of last instruction after junk removal
     noJunk.close()
 
-    noJunk = open("./output/noJunkTrace.txt", "a+")
+    noJunk = open(vmPath + vmDir + traceFile, "a+")
     # append the remaining instructions of vm trace
     for i in range(noJunkLastIndex+1, vmTraceLen):
         noJunk.write(vmTrace[i])
     noJunk.close()
 
-    noJunkTrace = open("./output/noJunkTrace.txt", "r").readlines()
+    noJunkTrace = open(vmPath + vmDir + traceFile, "r").readlines()
     noJunkTraceLen = len(noJunkTrace)
     print("Original VM trace length: %d \nVM trace length after junk removal: %d \
     \nNumber of junk instructions removed: %d \n" % (vmTraceLen, noJunkTraceLen, (vmTraceLen-noJunkTraceLen)))
 
     return noJunkTrace, noJunkTraceLen
 
-def getHandlers(noJunkTrace, noJunkTraceLen):
+### Find the handlers used out of the total handlers in the Virtual Machine ###
+
+# The Virtual Machine uses handlers to perform various operations.
+# There are multiple handlers written but not all are used
+
+def getHandlers(vm, noJunkTrace, noJunkTraceLen):
 
     handlers = []
+    
     uniqHandlers = set()
     for i in range(noJunkTraceLen):
         if "JMP" in noJunkTrace[i] and u.checkIfRegPresent(noJunkTrace[i]) and "JMP" in noJunkTrace[i+1]:
@@ -227,10 +274,25 @@ def getHandlers(noJunkTrace, noJunkTraceLen):
             uniqHandlers.add(handlerStart)
         i += 1
     # print(handlers)
+    vmPath = "./output/VMs/"
+    vmDir = "VM_" + vm[0] + "_" + vm[1] + "/"
+    if not os.path.exists(vmPath + vmDir + "handlers/"):
+        os.mkdir(vmPath + vmDir + "handlers/")
 
+    num = 1
+    toWrite = False
     for i, line in enumerate(noJunkTrace):
+        
         if u.checkIfHandlerPresent(handlers, line) and "JMP" in line:
-            print(line, i)
+            # print(line, i)
+            toWrite = False
+            f = open(vmPath + vmDir + "handlers/handler" + str(num) + ".txt", "w")
+            toWrite = True
+            num += 1
+
+        if toWrite:
+            f.write(line)
+
     return len(uniqHandlers), handlers
 
 
