@@ -273,7 +273,7 @@ def getHandlers(vm, noJunkTrace, noJunkTraceLen):
             handlers.append(handlerStart)
             uniqHandlers.add(handlerStart)
         i += 1
-    # print(handlers)
+    
     vmPath = "./output/VMs/"
     vmDir = "VM_" + vm[0] + "_" + vm[1] + "/"
     if not os.path.exists(vmPath + vmDir + "handlers/"):
