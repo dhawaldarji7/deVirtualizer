@@ -216,20 +216,21 @@ def removeJunk(vmTrace):
 
 def getHandlers(noJunkTrace, noJunkTraceLen):
 
-    handlers = set()
+    handlers = []
+    uniqHandlers = set()
     for i in range(noJunkTraceLen):
         if "JMP" in noJunkTrace[i] and u.checkIfRegPresent(noJunkTrace[i]) and "JMP" in noJunkTrace[i+1]:
             # This line at i+1 has the starting address of the handler
             lineSplit = (noJunkTrace[i+1].split(" "))
             handlerStart = lineSplit[7].split(".")[1].strip("\n")
-            handlers.add(handlerStart)
+            handlers.append(handlerStart)
+            uniqHandlers.add(handlerStart)
         i += 1
     # print(handlers)
 
-    for handler in handlers:
-        for line in noJunkTrace:
-            if handler in line and "JMP" in line:
-                print(line)
-    return len(handlers), handlers
+    for i, line in enumerate(noJunkTrace):
+        if u.checkIfHandlerPresent(handlers, line) and "JMP" in line:
+            print(line, i)
+    return len(uniqHandlers), handlers
 
 
