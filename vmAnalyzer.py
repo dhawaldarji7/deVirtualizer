@@ -3,7 +3,6 @@
 import os
 import utils as u
 
-
 ### Searching for Virtual Machines in the given trace ###
 def searchVMs(trace, trace_len):
 
@@ -161,11 +160,14 @@ def removeJunk(vm, vmTrace):
     # Between these two instructions only the instruction using the REG or EBP are real ones.
     vmTraceLen = len(vmTrace)
     insIndex = 0    # Index to be used to skip through instructions
+
+    # Paths
     vmPath = "./output/VMs/"
     vmDir = "VM_" + vm[0] + "_" + vm[1] + "/"
     if not os.path.exists(vmPath + vmDir):
         os.mkdir(vmPath + vmDir)
 
+    # The file where the reduced trace will be written
     traceFile = "noJunkVM_" + vm[0] + "_" + vm[1] + ".txt"
     noJunk = open(vmPath + vmDir + traceFile, "w")   # File to write the trace after junk removal
 
@@ -263,8 +265,15 @@ def removeJunk(vm, vmTrace):
 def getHandlers(vm, noJunkTrace, noJunkTraceLen):
 
     handlers = []
-    
-    uniqHandlers = set()
+    uniqHandlers = set() # will store the unique handlers executed
+
+    # Paths
+    vmPath = "./output/VMs/"
+    vmDir = "VM_" + vm[0] + "_" + vm[1] + "/"
+    if not os.path.exists(vmPath + vmDir + "handlers/"):
+        os.mkdir(vmPath + vmDir + "handlers/")
+
+    # This loop records all the handlers that are executed sequentially
     for i in range(noJunkTraceLen):
         if "JMP" in noJunkTrace[i] and u.checkIfRegPresent(noJunkTrace[i]) and "JMP" in noJunkTrace[i+1]:
             # This line at i+1 has the starting address of the handler
@@ -273,23 +282,20 @@ def getHandlers(vm, noJunkTrace, noJunkTraceLen):
             handlers.append(handlerStart)
             uniqHandlers.add(handlerStart)
         i += 1
-    
-    vmPath = "./output/VMs/"
-    vmDir = "VM_" + vm[0] + "_" + vm[1] + "/"
-    if not os.path.exists(vmPath + vmDir + "handlers/"):
-        os.mkdir(vmPath + vmDir + "handlers/")
 
+    # write all the handler execution to txt files
     num = 1
     toWrite = False
     for i, line in enumerate(noJunkTrace):
         
+        # Check if any handler start address is present in the current line and a JMP to it is made
         if u.checkIfHandlerPresent(handlers, line) and "JMP" in line:
-            # print(line, i)
             toWrite = False
             f = open(vmPath + vmDir + "handlers/handler" + str(num) + ".txt", "w")
             toWrite = True
             num += 1
 
+        # Write all lines until the next handler is encountered
         if toWrite:
             f.write(line)
 

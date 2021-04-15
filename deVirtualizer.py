@@ -44,17 +44,24 @@ if len(vmList):
 
     # Print the VM number along with its entry and exit address
     for vm in vmList:
+
+        # Print the info of the VM
         u.printVMInfo(vm, i)
         i+=1
 
+        # Read the VM trace
         vmTrace = u.readVMTrace(vm)
         
+        # Find the Main Handler of the VM
         a.getMainHandler(vm, vmTrace)
 
+        # Find the dipatcher loop and get the total number of handlers in the VM
         numHandlers = a.findDispatcher(vm, vmTrace)
 
+        # Remove junk instructions from the VM
         noJunkTrace, noJunkTraceLen = a.removeJunk(vm, vmTrace)
 
+        # Find the actual handlers used out of the total handlers
         numHandlersUsed, handlers = a.getHandlers(vm, noJunkTrace, noJunkTraceLen)
         print("%d handlers used out of %d handlers" % (numHandlersUsed, numHandlers))
 
