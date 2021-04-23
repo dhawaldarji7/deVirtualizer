@@ -178,7 +178,7 @@ def removeJunk(vm, vmTrace):
         # Everything until the first junk block is copied as is for now
         # A junk block starts with MOV REG, EBP
         if "MOV" in line and "EBP" in line and "DWORD" not in line:
-            ins = line.split()[2]   # MOV for junk blovk
+            # ins = line.split()[2]   # MOV for junk blovk
             op1 = (line.split()[3]).split(",")[0]   # REG for junk block    
             op2 = (line.split()[3]).split(",")[1]   # EBP fro junk block
 
@@ -205,7 +205,7 @@ def removeJunk(vm, vmTrace):
 
         # Get the start of the block
         elif "MOV" in line and "EBP" in line and "DWORD" not in line:
-            ins = line.split()[2]
+            # ins = line.split()[2]
             op1 = (line.split()[3]).split(",")[0]
             op2 = (line.split()[3]).split(",")[1]
 
@@ -287,11 +287,12 @@ def getHandlers(vm, noJunkTrace, noJunkTraceLen):
     num = 1
     toWrite = False
     for i, line in enumerate(noJunkTrace):
-        
+        h = ""
         # Check if any handler start address is present in the current line and a JMP to it is made
-        if u.checkIfHandlerPresent(handlers, line) and "JMP" in line:
+        h, isPresent = u.checkIfHandlerPresent(handlers, line)
+        if isPresent and "JMP" in line:
             toWrite = False
-            f = open(vmPath + vmDir + "handlers/handler" + str(num) + ".txt", "w")
+            f = open(vmPath + vmDir + "handlers/handler" + str(num) + "_" + h + ".txt", "w")
             toWrite = True
             num += 1
 

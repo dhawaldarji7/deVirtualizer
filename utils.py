@@ -20,4 +20,7 @@ def checkIfRegPresent(traceLine):
     return any(r == traceLineSplit[7].strip("\n") for r in registers) 
 
 def checkIfHandlerPresent(handlers, line):
-    return any([h in line for h in handlers])
+    for h in handlers:
+        if h in line:
+            return h, True
+    return "", False
