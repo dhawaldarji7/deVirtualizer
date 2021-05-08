@@ -267,6 +267,7 @@ def getHandlers(vm, noJunkTrace, noJunkTraceLen):
     handlers = []
     uniqHandlers = set() # will store the unique handlers executed
 
+    print("Initializing handler detection.")
     # Paths
     vmPath = "./output/VMs/"
     vmDir = "VM_" + vm[0] + "_" + vm[1] + "/"
@@ -299,6 +300,8 @@ def getHandlers(vm, noJunkTrace, noJunkTraceLen):
         # Write all lines until the next handler is encountered
         if toWrite:
             f.write(line)
+    
+    print("Handler detection completed.")
 
     return len(uniqHandlers), handlers
 
